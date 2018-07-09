@@ -19,6 +19,15 @@ namespace WebApplication3.Controllers
         {
             return View(db.客戶資料.ToList());
         }
+        public ActionResult Search(string Keyword)
+        {
+            var data = db.客戶資料.AsQueryable();
+            if (!string.IsNullOrEmpty(Keyword))
+            {
+                data = data.Where(x => x.客戶名稱.Contains(Keyword) || x.統一編號.Contains(Keyword) || x.電話.Contains(Keyword)||x.Email.Equals(Keyword));
+            }
+            return View("Index", data);
+        }
 
         // GET: 客戶資料/Details/5
         public ActionResult Details(int? id)

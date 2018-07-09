@@ -20,6 +20,22 @@ namespace WebApplication3.Controllers
             var 客戶銀行資訊 = db.客戶銀行資訊.Include(客 => 客.客戶資料);
             return View(客戶銀行資訊.ToList());
         }
+        public ActionResult Search(string Keyword)
+        {
+            var data = db.客戶銀行資訊.AsQueryable();
+
+            int i = 0;
+            bool result = int.TryParse(Keyword, out i);
+
+            if (!string.IsNullOrEmpty(Keyword))
+            {
+                if (result)
+                    data = data.Where(x => x.銀行代碼.Equals(i));
+                else
+                    data = data.Where(x => x.帳戶名稱.Contains(Keyword) || x.銀行名稱.Contains(Keyword));
+            }
+            return View("Index", data);
+        }
 
         // GET: 客戶銀行資訊/Details/5
         public ActionResult Details(int? id)

@@ -20,6 +20,15 @@ namespace WebApplication3.Controllers
             var 客戶聯絡人 = db.客戶聯絡人.Include(客 => 客.客戶資料);
             return View(客戶聯絡人.ToList());
         }
+        public ActionResult Search(string Keyword)
+        {
+            var data = db.客戶聯絡人.AsQueryable();
+            if (!string.IsNullOrEmpty(Keyword))
+            {
+                data = data.Where(x => x.Email.Contains(Keyword) || x.姓名.Contains(Keyword) || x.手機.Contains(Keyword)||x.電話.Contains(Keyword));
+            }
+            return View("Index", data);
+        }
 
         // GET: 客戶聯絡人/Details/5
         public ActionResult Details(int? id)
