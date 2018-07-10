@@ -212,6 +212,7 @@
     <Compile Include="Models\客戶資料Repository.cs">
       <DependentUpon>IRepository.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\客戶資料ViewModel.cs" />
     <Compile Include="Models\客戶銀行資訊.cs">
       <DependentUpon>客戶資料.tt</DependentUpon>
     </Compile>
@@ -302,6 +303,7 @@
     <Content Include="Views\客戶銀行資訊\Details.cshtml" />
     <Content Include="Views\客戶銀行資訊\Edit.cshtml" />
     <Content Include="Views\客戶銀行資訊\Index.cshtml" />
+    <Content Include="Views\客戶資料\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -19,12 +19,25 @@ namespace WebApplication3.Controllers
         {
             return View(db.客戶資料.ToList());
         }
+
+        public ActionResult Index2()
+        {
+            var data = db.客戶資料.Select(x => new 客戶資料ViewModel
+            {
+                Id = x.Id,
+                客戶名稱 = x.客戶名稱,
+                聯絡人數量 = x.客戶聯絡人.Count(),
+                銀行帳戶數量 = x.客戶銀行資訊.Count()
+            });
+            return View(data);
+        }
         public ActionResult Search(string Keyword)
         {
-            var data = db.客戶資料.AsQueryable();
+            var data = db.客戶資料.Where(x => x.客戶聯絡人.Contains(db.客戶聯絡人.FirstOrDefault())).AsQueryable();
+
             if (!string.IsNullOrEmpty(Keyword))
             {
-                data = data.Where(x => x.客戶名稱.Contains(Keyword) || x.統一編號.Contains(Keyword) || x.電話.Contains(Keyword)||x.Email.Equals(Keyword));
+                data = data.Where(x => x.客戶名稱.Contains(Keyword) || x.統一編號.Contains(Keyword) || x.電話.Contains(Keyword) || x.Email.Equals(Keyword));
             }
             return View("Index", data);
         }
