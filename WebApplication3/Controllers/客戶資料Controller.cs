@@ -17,12 +17,12 @@ namespace WebApplication3.Controllers
         // GET: 客戶資料
         public ActionResult Index()
         {
-            return View(db.客戶資料.ToList());
+            return View(db.客戶資料.Where(x => x.是否已刪除 != true).ToList());
         }
 
         public ActionResult Index2()
         {
-            var data = db.客戶資料.Select(x => new 客戶資料ViewModel
+            var data = db.客戶資料.Where(x => x.是否已刪除 != true).Select(x => new 客戶資料ViewModel
             {
                 Id = x.Id,
                 客戶名稱 = x.客戶名稱,
@@ -33,7 +33,7 @@ namespace WebApplication3.Controllers
         }
         public ActionResult Search(string Keyword)
         {
-            var data = db.客戶資料.Where(x => x.客戶聯絡人.Contains(db.客戶聯絡人.FirstOrDefault())).AsQueryable();
+            var data = db.客戶資料.Where(x => x.是否已刪除 != true).AsQueryable();
 
             if (!string.IsNullOrEmpty(Keyword))
             {
@@ -132,7 +132,7 @@ namespace WebApplication3.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             客戶資料 客戶資料 = db.客戶資料.Find(id);
-            db.客戶資料.Remove(客戶資料);
+            客戶資料.是否已刪除 = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

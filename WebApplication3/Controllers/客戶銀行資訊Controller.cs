@@ -17,12 +17,12 @@ namespace WebApplication3.Controllers
         // GET: 客戶銀行資訊
         public ActionResult Index()
         {
-            var 客戶銀行資訊 = db.客戶銀行資訊.Include(客 => 客.客戶資料);
+            var 客戶銀行資訊 = db.客戶銀行資訊.Include(客 => 客.客戶資料).Where(x => x.客戶資料.是否已刪除 != true);
             return View(客戶銀行資訊.ToList());
         }
         public ActionResult Search(string Keyword)
         {
-            var data = db.客戶銀行資訊.AsQueryable();
+            var data = db.客戶銀行資訊.Include(客 => 客.客戶資料).Where(x => x.客戶資料.是否已刪除 != true).AsQueryable();
 
             int i = 0;
             bool result = int.TryParse(Keyword, out i);

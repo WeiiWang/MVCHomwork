@@ -17,12 +17,12 @@ namespace WebApplication3.Controllers
         // GET: 客戶聯絡人
         public ActionResult Index()
         {
-            var 客戶聯絡人 = db.客戶聯絡人.Include(客 => 客.客戶資料);
+            var 客戶聯絡人 = db.客戶聯絡人.Include(客 => 客.客戶資料).Where(x => x.客戶資料.是否已刪除 != true);
             return View(客戶聯絡人.ToList());
         }
         public ActionResult Search(string Keyword)
         {
-            var data = db.客戶聯絡人.AsQueryable();
+            var data = db.客戶聯絡人.Include(客 => 客.客戶資料).Where(x => x.客戶資料.是否已刪除 != true).AsQueryable();
             if (!string.IsNullOrEmpty(Keyword))
             {
                 data = data.Where(x => x.Email.Contains(Keyword) || x.姓名.Contains(Keyword) || x.手機.Contains(Keyword)||x.電話.Contains(Keyword));
