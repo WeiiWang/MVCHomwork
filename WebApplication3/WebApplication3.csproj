@@ -168,6 +168,8 @@
     <Compile Include="Models\EFUnitOfWork.cs">
       <DependentUpon>IRepository.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\InputValidations\CellPhoneAttribute.cs" />
+    <Compile Include="Models\InputValidations\EmailDuplicateAttribute.cs" />
     <Compile Include="Models\IRepository.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
