@@ -41,6 +41,10 @@ namespace WebApplication3.Models
             }
             return data;
         }
+        public IQueryable<String> DropDownList()
+        {
+            return All().Select(x => x.客戶分類).Distinct();
+        }
     }
 
     public interface I客戶資料Repository : IRepository<客戶資料>

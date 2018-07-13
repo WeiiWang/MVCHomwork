@@ -16,13 +16,17 @@ namespace WebApplication3.Models
             return All().FirstOrDefault(x => x.Id.Equals(id));
         }
 
-        public IQueryable<客戶聯絡人> Search(string Keyword)
+        public IQueryable<客戶聯絡人> Search(string Keyword, string classification)
         {
             var data = All();
            
             if (!string.IsNullOrEmpty(Keyword))
             {
                 data = data.Where(x => x.Email.Contains(Keyword) || x.姓名.Contains(Keyword) || x.手機.Contains(Keyword) || x.電話.Contains(Keyword));
+            }
+            if (!string.IsNullOrEmpty(classification))
+            {
+                data = data.Where(x => x.職稱.Equals(classification));
             }
 
             return data;
@@ -31,6 +35,11 @@ namespace WebApplication3.Models
         public override void Delete(客戶聯絡人 entity)
         {
             entity.是否已刪除 = true;
+        }
+
+        public IQueryable<String> DropDownList()
+        {
+            return All().Select(x=>x.職稱).Distinct();
         }
     }
 

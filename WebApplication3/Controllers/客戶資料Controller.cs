@@ -21,7 +21,7 @@ namespace WebApplication3.Controllers
         {
 
             var data = repo.All();
-            ViewBag.classification = new SelectList(repo.All(), "客戶分類", "客戶分類");
+            ViewBag.classification = new SelectList(repo.DropDownList());
             return View(data);
         }
 
@@ -33,7 +33,7 @@ namespace WebApplication3.Controllers
         public ActionResult Search(string Keyword, string classification)
         {
             var data = repo.Search(Keyword, classification);
-            ViewBag.classification = new SelectList(repo.All(), "客戶分類", "客戶分類");
+            ViewBag.classification = new SelectList(repo.DropDownList());
             return View("Index", data);
         }
         public ActionResult Export()

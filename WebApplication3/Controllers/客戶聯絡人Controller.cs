@@ -29,11 +29,13 @@ namespace WebApplication3.Controllers
         public ActionResult Index()
         {
             var 客戶聯絡人 = repo.All();
+            ViewBag.classification = new SelectList(repo.DropDownList());
             return View(客戶聯絡人);
         }
-        public ActionResult Search(string Keyword)
+        public ActionResult Search(string Keyword, string classification)
         {
-            var data = repo.Search(Keyword);
+            var data = repo.Search(Keyword, classification);
+            ViewBag.classification = new SelectList(repo.DropDownList());
             return View("Index", data);
         }
         public ActionResult Export()
