@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Collections.Generic;
 
 namespace WebApplication3.Models
@@ -8,7 +9,8 @@ namespace WebApplication3.Models
     {
         public override IQueryable<客戶資料> All()
         {
-            return base.All().Where(x => x.是否已刪除 != true);
+            //return base.All().Where(x => x.是否已刪除 != true);
+            return base.All().Where("是否已刪除!=@0",true);
         }
 
         public IQueryable<客戶資料ViewModel> 客戶VM()
@@ -20,6 +22,12 @@ namespace WebApplication3.Models
                 聯絡人數量 = x.客戶聯絡人.Count(),
                 銀行帳戶數量 = x.客戶銀行資訊.Count()
             }); ;
+        }
+
+        public IQueryable<客戶資料> Sort(string condition,string orderby)
+        {
+            //return base.All().Where(x => x.是否已刪除 != true);
+            return All().OrderBy(string.Format("{0} {1}", condition, orderby));
         }
 
         public 客戶資料 Find(int id)

@@ -18,25 +18,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.客戶名稱)
+            @Html.ActionLink("客戶名稱", "Sort", new { condition = "客戶名稱" , orderby = ViewBag.orderby })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.客戶分類)
+            @Html.ActionLink("客戶分類", "Sort", new { condition = "客戶分類", orderby = ViewBag.orderby })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.統一編號)
+            @Html.ActionLink("統一編號", "Sort", new { condition = "統一編號", orderby = ViewBag.orderby })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.電話)
+            @Html.ActionLink("電話", "Sort", new { condition = "電話", orderby = ViewBag.orderby })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.傳真)
+            @Html.ActionLink("傳真", "Sort", new { condition = "傳真", orderby = ViewBag.orderby })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.地址)
+            @Html.ActionLink("地址", "Sort", new { condition = "地址", orderby = ViewBag.orderby })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.ActionLink("Email", "Sort", new { condition = "Email", orderby = ViewBag.orderby })
         </th>
         <th></th>
     </tr>

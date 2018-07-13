@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Collections.Generic;
 	
 namespace WebApplication3.Models
@@ -35,6 +36,11 @@ namespace WebApplication3.Models
             }
 
             return data;
+        }
+        public IQueryable<客戶聯絡人> Sort(string condition, string orderby)
+        {
+            //return base.All().Where(x => x.是否已刪除 != true);
+            return All().OrderBy(string.Format("{0} {1}", condition, orderby));
         }
 
         public override void Delete(客戶聯絡人 entity)

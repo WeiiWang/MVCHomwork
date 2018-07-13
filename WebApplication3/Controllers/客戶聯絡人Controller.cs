@@ -33,6 +33,18 @@ namespace WebApplication3.Controllers
             ViewBag.classification = new SelectList(repo.DropDownList());
             return View(客戶聯絡人);
         }
+
+        public ActionResult Sort(string condition)
+        {
+            ViewBag.classification = new SelectList(repo.DropDownList());
+            var orderby = (string)Session["orderby"];
+            ViewBag.orderby = orderby != "asc" ? "asc" : "desc";
+            Session["orderby"] = ViewBag.orderby;
+
+            var data = repo.Sort(condition, ViewBag.orderby);
+            return View("Index", data);
+        }
+
         public ActionResult Search(string Keyword, string classification)
         {
             var data = repo.Search(Keyword, classification);

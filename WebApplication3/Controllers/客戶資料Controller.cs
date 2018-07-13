@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication3.Models;
+//using System.Linq.Dynamic;
 
 namespace WebApplication3.Controllers
 {
@@ -20,8 +21,10 @@ namespace WebApplication3.Controllers
         public ActionResult Index()
         {
 
+
             var data = repo.All();
             ViewBag.classification = new SelectList(repo.DropDownList());
+
             return View(data);
         }
 
@@ -36,6 +39,17 @@ namespace WebApplication3.Controllers
             ViewBag.classification = new SelectList(repo.DropDownList());
             return View("Index", data);
         }
+        public ActionResult Sort(string condition)
+        {
+            ViewBag.classification = new SelectList(repo.DropDownList());
+            var orderby = (string)Session["orderby"];
+            ViewBag.orderby = orderby != "asc" ? "asc" : "desc";
+            Session["orderby"] = ViewBag.orderby;
+
+            var data = repo.Sort(condition, ViewBag.orderby);
+            return View("Index", data);
+        }
+
         public ActionResult Export()
         {
 
