@@ -11,6 +11,11 @@ namespace WebApplication3.Models
             return base.All().Where(x => x.客戶資料.是否已刪除 != true && x.是否已刪除 != true);
         }
 
+        public IQueryable DisplayDAll()
+        {
+            return base.All().Where(x => x.客戶資料.是否已刪除 == true || x.是否已刪除 == true).Select(x => new { x.職稱, x.姓名, x.Email, x.手機, x.電話, x.客戶資料.客戶名稱 });
+        }
+
         public 客戶聯絡人 Find(int id)
         {
             return All().FirstOrDefault(x => x.Id.Equals(id));

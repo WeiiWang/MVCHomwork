@@ -11,6 +11,7 @@
     @Html.DropDownList("classification", null, "請選擇", htmlAttributes: new { @class = "form-control" })
     <input type="submit" value="搜尋" />
     <input type="button" id="Export" value="匯出" />
+    <input type="button" id="DisplayDAll" value="顯示刪除資料" />
 }
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -68,14 +69,37 @@
     }
 
 </table>
+<pre></pre>
 @section Scripts {
     @Scripts.Render("~/Scripts/jquery-3.3.1.js")
     <script type="text/javascript">
-    $("#Export").click(function () {
-        $.get('@Url.Action("Export")', function ()
-        {
-            window.location.href = '@Url.Action("Export")';
+        var template = "";
+
+        $("#Export").click(function () {
+            $.get('@Url.Action("Export")', function ()
+            {
+                window.location.href = '@Url.Action("Export")';
+            });
         });
-    });
+
+        $("#DisplayDAll").click(function () {
+            $.get('@Url.Action("DisplayDAll")', function (data)
+            {
+                $("pre").append(data);
+
+                $.each(JSON.parse(data), function (index, val) {
+
+                    $(".table").append('<tr>' +
+                        '<td>' + val.職稱 + '</td>' +
+                        '<td>' + val.姓名 + '</td>' +
+                        '<td>' + val.Email + '</td>' +
+                        '<td>' + val.手機 + '</td>' +
+                        '<td>' + val.電話 + '</td>' +
+                        '<td>' + val.客戶名稱 + '</td>' +
+                        '</tr>');
+                });
+            });
+            $("#DisplayDAll").prop("disabled", true);
+        });
     </script>
 }

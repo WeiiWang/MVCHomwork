@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -37,6 +38,12 @@ namespace WebApplication3.Controllers
             var data = repo.Search(Keyword, classification);
             ViewBag.classification = new SelectList(repo.DropDownList());
             return View("Index", data);
+        }
+        public ActionResult DisplayDAll()
+        {
+            var data = repo.DisplayDAll();
+
+            return Json(JsonConvert.SerializeObject(data), JsonRequestBehavior.AllowGet);
         }
         public ActionResult Export()
         {
