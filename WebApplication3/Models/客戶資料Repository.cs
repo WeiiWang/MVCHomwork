@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-	
+
 namespace WebApplication3.Models
-{   
-	public  class 客戶資料Repository : EFRepository<客戶資料>, I客戶資料Repository
-	{
+{
+    public class 客戶資料Repository : EFRepository<客戶資料>, I客戶資料Repository
+    {
         public override IQueryable<客戶資料> All()
         {
             return base.All().Where(x => x.是否已刪除 != true);
@@ -27,7 +27,7 @@ namespace WebApplication3.Models
             return All().FirstOrDefault(x => x.Id.Equals(id));
         }
 
-        public IQueryable<客戶資料> Search(string Keyword)
+        public IQueryable<客戶資料> Search(string Keyword, string classification)
         {
             var data = All();
 
@@ -35,13 +35,16 @@ namespace WebApplication3.Models
             {
                 data = data.Where(x => x.客戶名稱.Contains(Keyword) || x.統一編號.Contains(Keyword) || x.電話.Contains(Keyword) || x.Email.Equals(Keyword));
             }
-
+            if (!string.IsNullOrEmpty(classification))
+            {
+                data = data.Where(x => x.客戶分類.Equals(classification));
+            }
             return data;
         }
     }
 
-	public  interface I客戶資料Repository : IRepository<客戶資料>
-	{
+    public interface I客戶資料Repository : IRepository<客戶資料>
+    {
 
-	}
+    }
 }
