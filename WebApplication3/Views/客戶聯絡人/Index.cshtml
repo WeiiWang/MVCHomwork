@@ -9,6 +9,7 @@
 {
     @Html.TextBox("Keyword", null, new { placeholder = "請輸入關鍵字" })
     <input type="submit" value="搜尋" />
+    <input type="button" id="Export" value="匯出" />
 }
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -66,3 +67,14 @@
     }
 
 </table>
+@section Scripts {
+    @Scripts.Render("~/Scripts/jquery-3.3.1.js")
+    <script type="text/javascript">
+    $("#Export").click(function () {
+        $.get('@Url.Action("Export")', function ()
+        {
+            window.location.href = '@Url.Action("Export")';
+        });
+    });
+    </script>
+}
