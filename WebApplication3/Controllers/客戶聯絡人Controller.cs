@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -161,6 +162,7 @@ namespace WebApplication3.Controllers
             return View(客戶聯絡人);
         }
 
+        [HandleError(ExceptionType = typeof(DbEntityValidationException), View = "Error_DbEntityValidationException")]
         public ActionResult BatchUpdate(客戶聯絡人VM[] data )
         {
             if (ModelState.IsValid)

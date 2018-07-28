@@ -160,6 +160,7 @@ namespace WebApplication3.Controllers
             return View(客戶資料);
         }
 
+        [HandleError(ExceptionType = typeof(NullReferenceException), View = "Error_NullReferenceException")]
         public ActionResult BatchUpdate(客戶聯絡人VM[] data, int id)
         {
             if (ModelState.IsValid)
@@ -174,6 +175,7 @@ namespace WebApplication3.Controllers
                 repox.UnitOfWork.Commit();
             }
             return RedirectToAction("Details", new { id = id });
+            
         }
 
         // GET: 客戶資料/Delete/5
