@@ -158,6 +158,22 @@ namespace WebApplication3.Controllers
             return View(客戶聯絡人);
         }
 
+        public ActionResult BatchUpdate(客戶聯絡人VM[] data )
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var vm in data)
+                {
+                    var item = repo.Find(vm.Id);
+                    item.職稱 = vm.職稱;
+                    item.手機 = vm.手機;
+                    item.電話 = vm.電話;
+                }
+                repo.UnitOfWork.Commit();
+            }
+            return RedirectToAction("Index");
+        }
+
         // GET: 客戶聯絡人/Delete/5
         public ActionResult Delete(int? id)
         {

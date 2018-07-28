@@ -212,6 +212,7 @@
     <Compile Include="Models\客戶聯絡人Repository.cs">
       <DependentUpon>IRepository.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\客戶聯絡人VM.cs" />
     <Compile Include="Models\客戶資料.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

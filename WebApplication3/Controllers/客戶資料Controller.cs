@@ -158,6 +158,22 @@ namespace WebApplication3.Controllers
             return View(客戶資料);
         }
 
+        public ActionResult BatchUpdate(客戶聯絡人VM[] data, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var vm in data)
+                {
+                    var item = repox.Find(vm.Id);
+                    item.職稱 = vm.職稱;
+                    item.手機 = vm.手機;
+                    item.電話 = vm.電話;
+                }
+                repox.UnitOfWork.Commit();
+            }
+            return RedirectToAction("Details", new { id = id });
+        }
+
         // GET: 客戶資料/Delete/5
         public ActionResult Delete(int? id)
         {

@@ -16,59 +16,71 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.ActionLink("職稱", "Sort", new { condition = "職稱", orderby = ViewBag.orderby })
-        </th>
-        <th>
-            @Html.ActionLink("姓名", "Sort", new { condition = "姓名", orderby = ViewBag.orderby })
-        </th>
-        <th>
-            @Html.ActionLink("Email", "Sort", new { condition = "Email", orderby = ViewBag.orderby })
-        </th>
-        <th>
-            @Html.ActionLink("手機", "Sort", new { condition = "手機", orderby = ViewBag.orderby })
-        </th>
-        <th>
-            @Html.ActionLink("電話", "Sort", new { condition = "電話", orderby = ViewBag.orderby })
-        </th>
-        <th>
-            @Html.ActionLink("客戶名稱", "Sort", new { condition = "客戶資料.客戶名稱", orderby = ViewBag.orderby })
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+@using (Html.BeginForm("BatchUpdate", "客戶聯絡人"))
+{
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.職稱)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.姓名)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.手機)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.電話)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.客戶資料.客戶名稱)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id })|
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
+            <th>
+                @Html.ActionLink("職稱", "Sort", new { condition = "職稱", orderby = ViewBag.orderby })
+            </th>
+            <th>
+                @Html.ActionLink("姓名", "Sort", new { condition = "姓名", orderby = ViewBag.orderby })
+            </th>
+            <th>
+                @Html.ActionLink("Email", "Sort", new { condition = "Email", orderby = ViewBag.orderby })
+            </th>
+            <th>
+                @Html.ActionLink("手機", "Sort", new { condition = "手機", orderby = ViewBag.orderby })
+            </th>
+            <th>
+                @Html.ActionLink("電話", "Sort", new { condition = "電話", orderby = ViewBag.orderby })
+            </th>
+            <th>
+                @Html.ActionLink("客戶名稱", "Sort", new { condition = "客戶資料.客戶名稱", orderby = ViewBag.orderby })
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @{
+            var data = Model.ToArray();
+        }
+        @for (int i = 0; i < data.Length; i++)
+        {
+            @Html.HiddenFor(modelItem => data[i].Id)
+            <tr>
+                <td>
+                    @Html.EditorFor(modelItem => data[i].職稱)
+                    @Html.ValidationMessageFor(model => data[i].職稱, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => data[i].姓名)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => data[i].Email)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => data[i].手機)
+                    @Html.ValidationMessageFor(model => data[i].手機, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => data[i].電話)
+                    @Html.ValidationMessageFor(model => data[i].電話, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => data[i].客戶資料.客戶名稱)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = data[i].Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = data[i].Id })|
+                    @Html.ActionLink("Delete", "Delete", new { id = data[i].Id })
+                </td>
+            </tr>
+        }
+
+
+    </table>
+    <input type="submit" />
+}
 <pre></pre>
 @section Scripts {
     @Scripts.Render("~/Scripts/jquery-3.3.1.js")

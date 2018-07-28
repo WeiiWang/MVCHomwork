@@ -64,4 +64,7 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-@Html.Action("DetailCollection", new { id = Model.Id })
+@using (Html.BeginForm("BatchUpdate", "客戶資料",new { id=Model.Id}))
+{
+    @Html.Action("DetailCollection", new { id = Model.Id })
+}
