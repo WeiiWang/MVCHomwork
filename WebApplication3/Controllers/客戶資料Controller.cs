@@ -13,6 +13,7 @@ using X.PagedList;
 
 namespace WebApplication3.Controllers
 {
+    [LogActionTime]
     public class 客戶資料Controller : Controller
     {
         private 客戶資料Repository repo;
