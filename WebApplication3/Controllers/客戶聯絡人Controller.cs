@@ -10,6 +10,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication3.Models;
+using X.PagedList;
 
 namespace WebApplication3.Controllers
 {
@@ -27,9 +28,11 @@ namespace WebApplication3.Controllers
         //private 客戶資料Entities db = new 客戶資料Entities();
 
         // GET: 客戶聯絡人
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var 客戶聯絡人 = repo.All();
+            var pageNumber = page ?? 1;
+            var 客戶聯絡人 = repo.All().OrderBy(x=>x.Id).ToPagedList(pageNumber, 1);
+
             ViewBag.classification = new SelectList(repo.DropDownList());
             return View(客戶聯絡人);
         }

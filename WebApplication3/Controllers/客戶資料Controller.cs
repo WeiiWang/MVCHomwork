@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication3.Models;
+using X.PagedList;
 //using System.Linq.Dynamic;
 
 namespace WebApplication3.Controllers
@@ -25,11 +26,11 @@ namespace WebApplication3.Controllers
         //private 客戶資料Entities db = new 客戶資料Entities();
 
         // GET: 客戶資料
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
 
-
-            var data = repo.All();
+            var pageNumber = page ?? 1;
+            var data = repo.All().OrderBy(x => x.Id).ToPagedList(pageNumber, 1);
             ViewBag.classification = new SelectList(repo.DropDownList());
 
             return View(data);

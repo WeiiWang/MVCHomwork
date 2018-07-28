@@ -18,7 +18,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("客戶名稱", "Sort", new { condition = "客戶名稱" , orderby = ViewBag.orderby })
+            @Html.ActionLink("客戶名稱", "Sort", new { condition = "客戶名稱", orderby = ViewBag.orderby })
         </th>
         <th>
             @Html.ActionLink("客戶分類", "Sort", new { condition = "客戶分類", orderby = ViewBag.orderby })
@@ -74,6 +74,7 @@
     }
 
 </table>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
 @section Scripts {
     @Scripts.Render("~/Scripts/jquery-3.3.1.js")
     <script type="text/javascript">
