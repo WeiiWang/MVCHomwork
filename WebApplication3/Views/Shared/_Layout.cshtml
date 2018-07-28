@@ -111,7 +111,9 @@
                         <a href="index.html">Home</a>
                         <i class="icon-angle-right"></i>
                     </li>
-                    <li><a href="#">Dashboard</a></li>
+                    @*@{ var routeValues = ViewContext.RouteData.Values; }
+                    <li>@Html.ActionLink(routeValues["controller"].ToString(), routeValues["action"].ToString(), routeValues["controller"].ToString())</li>*@
+                    <li>@RenderSection("breadcrumb", false)</li>
                 </ul>
 
                 @RenderBody()

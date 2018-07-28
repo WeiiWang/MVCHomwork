@@ -4,6 +4,10 @@
     ViewBag.Title = "Index";
 }
 
+@{ var routeValues = ViewContext.RouteData.Values; }
+@section breadcrumb {
+    @Html.ActionLink(routeValues["controller"].ToString(), routeValues["action"].ToString(), routeValues["controller"].ToString())
+}
 <h2>Index</h2>
 @using (Html.BeginForm("Search", "客戶聯絡人", FormMethod.Get, null))
 {
