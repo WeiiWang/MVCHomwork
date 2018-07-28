@@ -69,7 +69,7 @@
 </table>
 @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
 @section Scripts {
-    @Scripts.Render("~/Scripts/jquery-3.3.1.js")
+    @*@Scripts.Render("~/Scripts/jquery-3.3.1.js")*@
     <script type="text/javascript">
     $("#Export").click(function () {
         $.get('@Url.Action("Export")', function ()

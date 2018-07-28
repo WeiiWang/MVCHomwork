@@ -7,7 +7,7 @@
 <h2>Index</h2>
 @using (Html.BeginForm("Search", "客戶資料", FormMethod.Get, null))
 {
-    @Html.TextBox("Keyword", null, new { placeholder = "請輸入關鍵字" })
+    @Html.TextBox("Keyword", null, new { placeholder = "請輸入關鍵字", @class = "cleditor" })
     @Html.DropDownList("classification", null, "請選擇", htmlAttributes: new { @class = "form-control" })
     <input type="submit" value="搜尋" />
     <input type="button" id="Export" value="匯出" />
@@ -76,7 +76,7 @@
 </table>
 @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
 @section Scripts {
-    @Scripts.Render("~/Scripts/jquery-3.3.1.js")
+    @*@Scripts.Render("~/Scripts/jquery-3.3.1.js")*@
     <script type="text/javascript">
     $("#Export").click(function () {
         $.get('@Url.Action("Export")', function ()
