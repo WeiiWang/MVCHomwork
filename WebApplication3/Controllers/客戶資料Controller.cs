@@ -14,7 +14,14 @@ namespace WebApplication3.Controllers
 {
     public class 客戶資料Controller : Controller
     {
-        private 客戶資料Repository repo = RepositoryHelper.Get客戶資料Repository();
+        private 客戶資料Repository repo;
+        private 客戶聯絡人Repository repox;
+
+        public 客戶資料Controller()
+        {
+            repo = RepositoryHelper.Get客戶資料Repository();
+            repox = RepositoryHelper.Get客戶聯絡人Repository(repo.UnitOfWork);
+        }
         //private 客戶資料Entities db = new 客戶資料Entities();
 
         // GET: 客戶資料
@@ -90,6 +97,11 @@ namespace WebApplication3.Controllers
                 return HttpNotFound();
             }
             return View(客戶資料);
+        }
+        public ActionResult DetailCollection(int id)
+        {
+            ViewData.Model = repo.FindDetialCollection(id);
+            return PartialView("DetailCollection");
         }
 
         // GET: 客戶資料/Create

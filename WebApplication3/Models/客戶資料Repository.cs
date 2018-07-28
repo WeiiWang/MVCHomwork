@@ -10,7 +10,7 @@ namespace WebApplication3.Models
         public override IQueryable<客戶資料> All()
         {
             //return base.All().Where(x => x.是否已刪除 != true);
-            return base.All().Where("是否已刪除!=@0",true);
+            return base.All().Where("是否已刪除!=@0", true);
         }
 
         public IQueryable<客戶資料ViewModel> 客戶VM()
@@ -24,7 +24,7 @@ namespace WebApplication3.Models
             }); ;
         }
 
-        public IQueryable<客戶資料> Sort(string condition,string orderby)
+        public IQueryable<客戶資料> Sort(string condition, string orderby)
         {
             //return base.All().Where(x => x.是否已刪除 != true);
             return All().OrderBy(string.Format("{0} {1}", condition, orderby));
@@ -33,6 +33,11 @@ namespace WebApplication3.Models
         public 客戶資料 Find(int id)
         {
             return All().FirstOrDefault(x => x.Id.Equals(id));
+        }
+
+        public IEnumerable<客戶聯絡人> FindDetialCollection(int id)
+        {
+            return Find(id).客戶聯絡人.Where(x => x.是否已刪除 != true);
         }
 
         public IQueryable<客戶資料> Search(string Keyword, string classification)
