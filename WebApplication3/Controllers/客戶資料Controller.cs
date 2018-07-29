@@ -5,8 +5,11 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using WebApplication3.Models;
 using X.PagedList;
 //using System.Linq.Dynamic;
@@ -57,6 +60,74 @@ namespace WebApplication3.Controllers
 
             var data = repo.Sort(condition, ViewBag.orderby);
             return View("Index", data);
+        }
+
+        public ActionResult SettingAccount(int id)
+        {
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Content("未登入");
+            }
+            return PartialView(repo.Find(id));
+        }
+
+        public ActionResult EditAccount(客戶帳號VM item)
+        {
+            if (ModelState.IsValid)
+            {
+                SHA512 sha512 = new SHA512CryptoServiceProvider();
+                string resultSha512 = Convert.ToBase64String(sha512.ComputeHash(Encoding.Default.GetBytes(item.密碼)));
+
+                var data = repo.Find(item.Id);
+                data.密碼 = resultSha512;
+                data.傳真 = item.傳真;
+                data.地址 = item.地址;
+                data.電話 = item.電話;
+                data.Email = item.Email;
+                repo.UnitOfWork.Commit();
+            }
+
+
+            return PartialView();
+        }
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index");
+        }
+        public ActionResult Login()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(string account, string password)
+        {
+            SHA512 sha512 = new SHA512CryptoServiceProvider();
+            string resultSha512 = Convert.ToBase64String(sha512.ComputeHash(Encoding.Default.GetBytes(password)));
+
+            var data = repo.All().FirstOrDefault(x => x.帳號.Equals(account));
+            if (data == null || !data.密碼.Equals(resultSha512))
+            {
+                RedirectToAction("Index");
+            }
+            FormsAuthentication.RedirectFromLoginPage(account, false);
+            //FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1,
+            //    account,
+            //    DateTime.Now,
+            //    DateTime.Now.AddMinutes(30),
+            //    false,
+            //    account,
+            //    FormsAuthentication.FormsCookiePath);
+
+            //// Encrypt the ticket.
+            //string encTicket = FormsAuthentication.Encrypt(ticket);
+
+            //// Create the cookie.
+            //Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+
+            return RedirectToAction("SettingAccount", new { id = data.Id });
         }
 
         public ActionResult Export()
@@ -175,7 +246,7 @@ namespace WebApplication3.Controllers
                 repox.UnitOfWork.Commit();
             }
             return RedirectToAction("Details", new { id = id });
-            
+
         }
 
         // GET: 客戶資料/Delete/5

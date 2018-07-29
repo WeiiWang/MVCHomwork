@@ -214,6 +214,7 @@
     <Compile Include="Models\RepositoryHelper.cs">
       <DependentUpon>IRepository.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\客戶帳號VM.cs" />
     <Compile Include="Models\客戶聯絡人.cs">
       <DependentUpon>客戶資料.tt</DependentUpon>
     </Compile>
@@ -413,6 +414,7 @@
     <Content Include="js\jquery.uploadify-3.1.min.js" />
     <Content Include="js\modernizr.js" />
     <Content Include="js\retina.js" />
+    <Content Include="login.html" />
     <Content Include="Models\EFGeneratePartialClass.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EFGeneratePartialClass.cs</LastGenOutput>
@@ -500,6 +502,9 @@
     <Content Include="Views\客戶資料\DetailCollection.cshtml" />
     <Content Include="Views\Shared\Error_DbEntityValidationException.cshtml" />
     <Content Include="Views\Shared\Error_NullReferenceException.cshtml" />
+    <Content Include="Views\客戶資料\SettingAccount.cshtml" />
+    <Content Include="Views\客戶資料\Login.cshtml" />
+    <Content Include="Views\客戶資料\EditAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
